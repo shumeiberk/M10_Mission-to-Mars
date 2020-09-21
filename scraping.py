@@ -4,6 +4,13 @@ from bs4 import BeautifulSoup as soup
 import pandas as pd
 import datetime as dt
 
+
+# Windows users
+executable_path = {'executable_path': 'chromedriver.exe'}
+browser = Browser('chrome', **executable_path, headless=False)
+
+
+
 def scrape_all():
     # Initiate headless driver for deployment
     browser = Browser("chrome", executable_path="chromedriver", headless=True)
@@ -23,12 +30,6 @@ def scrape_all():
     browser.quit()
     return data
 
-
-# Windows users
-executable_path = {'executable_path': 'chromedriver.exe'}
-browser = Browser('chrome', **executable_path, headless=False)
-
-# Mars News
 
 def mars_news(browser):
 
@@ -57,7 +58,6 @@ def mars_news(browser):
 
     return news_title, news_p
 
-# Featured Image
 
 def featured_image(browser):
     # Visit URL
@@ -89,8 +89,6 @@ def featured_image(browser):
     img_url = f'https://www.jpl.nasa.gov{img_url_rel}'
 
     return img_url
-
-# Mars Facts
 
 def mars_facts():
     # Add try/except for error handling
