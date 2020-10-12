@@ -106,6 +106,31 @@ def mars_facts():
     # Convert dataframe into HTML format, add bootstrap
     return df.to_html(classes="table table-striped")
 
+### Challenge Mars Hemispheres
+
+hemispheres = []
+
+def Mars_hemisphere(i):
+    url = 'https://astrogeology.usgs.gov/search/results?q=hemisphere+enhanced&k1=target&v1=Mars'
+    browser.visit(url)
+    
+    # Find and click the full image button
+    links_found = browser.links.find_by_partial_text('Enhanced')
+    links_found[i].click()
+    
+    # Parse the resulting html with soup
+    html = browser.html
+    soup = BeautifulSoup(html, 'html.parser')
+    
+    # Find the image elements
+    info = soup.find('div', class_='downloads').find('a')
+    link = info.get('href')
+    title = soup.find('h2', class_='title').get_text()
+    
+    return ({"img_url": link, "title": title})
+    
+
+
 if __name__ == "__main__":
 
     # If running as script, print scraped data
